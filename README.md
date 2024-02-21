@@ -211,7 +211,7 @@ Notes:
 - **2. Open PgAdmin, Find the table `diffusion_shared.state_incentives_2020.py`.**
     **Make sure** you can see the row whose values you want to change - it will contain 'DC' and 'SREC'
 
-- **3. Open the notebook `dGen_results_DC_2024.ipynb`. Confirm you can connect to the PostgreSQL database using SQLAlchemy.** 
+- **3. Open the notebook `dGen_results_DC_2024.ipynb` [linked here](https://github.com/georgetown-mdi/dgen_MDI_DOEE/blob/master/dgen_os/python/Notebooks/dGen_results_DC_2024.ipynb). Confirm you can connect to the PostgreSQL database using SQLAlchemy.** 
 This connection allows interacting with your database directly from the Python script, enabling SQL commands, such as updates or queries, dynamically during script execution.
 
 - **4. Set SREC price and scenario parameters:**
