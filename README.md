@@ -194,36 +194,68 @@ Notes:
 ## Notes:
 - The "load_path" variable in config.py from the beta release has been removed for the final release. The load data is now integrated into each database. Load data and meta data for the agents is still accessible via the OEDI data submission.
 
------------------------------------------------------------
+=====================================================
 
 ### Update - Feb 21, 2024
 
 ## DC Solar project (MDI + DOEE + NREL)
 
+=====================================================
 
-This repository fork is designed to forecast solar adoption in Washington DC as a response to different SREC pricing regimes.
 
 #### STEPS:
 
-- **1. Run the above steps till step D.** Open PostGres, the table state_incentives_2020 and **make sure**
-  	 you can see the row whose values you want to change - it will contain 'DC' and 'SREC'
+- **1. Run the above steps till STEP D.**
+  Pause if you can see the database in PgAdmin.
 
-- **2. Open `set_SREC_and_scenario.py` file.** Manually set the arguments in the dictionary to the required setting for each scenario parameter (like electricity price scenario - high)
+- **2. Open the notebook `dGen_results_DC_2024.ipynb`. Confirm you can connect to the PostgreSQL database using SQLAlchemy.** 
+This connection allows interacting with your database directly from the Python script, enabling SQL commands, such as updates or queries, dynamically during script execution.
 
-- **3. Open a terminal in the same directory.** Run:
+- **3. Open PostGres, Find the table `diffusion_shared.state_incentives_2020.py`. **
+    **Make sure** can see the row whose values you want to change - it will contain 'DC' and 'SREC'
 
-  ``python modify_script.py --srec 0.54 --input_sheet_path /path/to/input_sheet --database_path /path/to/database
-``
+- **4. Set SREC price and scenario parameters:**
 
-1. SREC prices
+  This can be changed by defining functions in the notebook directly. But to prepare for automation and scaling, we write a separate Python script `set_SREC_and_scenario.py`. This file performs two functions:
 
-Currently, this contains only one extra script: `set_SREC_and_scenario.py` [link]
+  	- a. modify_sql: Overwrite the values in the `dgen_db.sql `file on prior to loading the database. Or, update the database in PostGres using SQLAlchemy.
+ 
+  	- b.  Set scenario parameters: This changes the `input_sheet_final.xlsx` from inside Python. MANUALLY set the arguments in the dictionary, based on the required setting for each parameter (like electricity price scenario - high).
+```
+parameters_to_update = {
+    "Technology": "Solar + Storage",
+    "Agent File": "Use pre-generated Agents",
+    "Region to Analyze": "District of Columbia",
+    "Markets": "Only Residential",
+    "Analysis End Year": int(2040),
+...
+}
 
-This script makes changes in two files:
+# Map of scenario names to their new values as provided
+scenario_values = {
+    "Retail Electricity Price Escalation Scenario": "ATB19_High_RE_Cost_retail",
+    "Wholesale Electricity Price Scenario": "ATB19_Mid_Case_wholesale",
+...
+    "Value of Resiliency Scenario": "vor_FY20_mid",
+    "Carbon Intensity Scenario": "carbon_intensities_FY19"
+}
 
-- The original `dgen_db.sql` file. In input table `dgen_db.state_diffusion` tables, it manually searches for the row based on a regex-like pattern including the string 'DC'.
 
-- The 
+```
+
+
+- **5. Open a terminal in the same directory or run in notebook** Run:
+
+- **6. Continue from step E2, and run the model same as above.
+  
+When model results are ready, access them through the notebook and begin ananlysis.
+
+The arguments you need to enter:
+
+- `srec`: floating point number representing the USD ($) amount subsidy for every solar kWH.
+- `input_sheet_path`: path to the `input_sheet_final.xlsx` file mentioned in step E above.
+- `database_path`: path to the `dgen_db.sql` file
+
 
 
 
