@@ -206,21 +206,20 @@ Notes:
 #### STEPS:
 
 - **1. Run the above steps till STEP D.**
-  Pause if you can see the database in PgAdmin.
+  The database dgen_db should be connected and visible in PgAdmin.
 
-- **2. Open the notebook `dGen_results_DC_2024.ipynb`. Confirm you can connect to the PostgreSQL database using SQLAlchemy.** 
+- **2. Open PgAdmin, Find the table `diffusion_shared.state_incentives_2020.py`.**
+    **Make sure** you can see the row whose values you want to change - it will contain 'DC' and 'SREC'
+
+- **3. Open the notebook `dGen_results_DC_2024.ipynb`. Confirm you can connect to the PostgreSQL database using SQLAlchemy.** 
 This connection allows interacting with your database directly from the Python script, enabling SQL commands, such as updates or queries, dynamically during script execution.
 
-- **3. Open PostGres, Find the table `diffusion_shared.state_incentives_2020.py`. **
-    **Make sure** can see the row whose values you want to change - it will contain 'DC' and 'SREC'
-
 - **4. Set SREC price and scenario parameters:**
-
   This can be changed by defining functions in the notebook directly. But to prepare for automation and scaling, we write a separate Python script `set_SREC_and_scenario.py`. This file performs two functions:
 
-  	- a. modify_sql: Overwrite the values in the `dgen_db.sql `file on prior to loading the database. Or, update the database in PostGres using SQLAlchemy.
+  	- a. `modify_sql`: Overwrite the values in the `dgen_db.sql `file on prior to loading the database. Or, update the database in PostGres using SQLAlchemy.
  
-  	- b.  Set scenario parameters: This changes the `input_sheet_final.xlsx` from inside Python. MANUALLY set the arguments in the dictionary, based on the required setting for each parameter (like electricity price scenario - high).
+  	- b.  `Set scenario parameters`: This changes the `input_sheet_final.xlsx` from inside Python. MANUALLY set the arguments in the dictionary, based on the required setting for each parameter (like electricity price scenario - high).
 ```
 parameters_to_update = {
     "Technology": "Solar + Storage",
@@ -236,19 +235,12 @@ scenario_values = {
     "Retail Electricity Price Escalation Scenario": "ATB19_High_RE_Cost_retail",
     "Wholesale Electricity Price Scenario": "ATB19_Mid_Case_wholesale",
 ...
-    "Value of Resiliency Scenario": "vor_FY20_mid",
     "Carbon Intensity Scenario": "carbon_intensities_FY19"
 }
 
-
 ```
 
-
-- **5. Open a terminal in the same directory or run in notebook** Run:
-
-- **6. Continue from step E2, and run the model same as above.
-  
-When model results are ready, access them through the notebook and begin ananlysis.
+- **5. Open a terminal in the same directory or run in notebook**
 
 The arguments you need to enter:
 
@@ -257,6 +249,9 @@ The arguments you need to enter:
 - `database_path`: path to the `dgen_db.sql` file
 
 
+- **6. Continue from step E2, and run the model same as above.
+  
+When model results are ready, access them through the notebook and begin ananlysis.
 
 
 ## Next steps:
