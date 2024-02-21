@@ -1,19 +1,10 @@
-﻿<p align="center">
- <img src="https://github.com/NREL/dgen/blob/master/docs/figs/dGen-logo-lrg.png" />
-</p>
-
-The Distributed Generation Market Demand (dGen) Model
+# The Distributed Generation Market Demand (dGen) Model
 =====================================================
 
-<p align="center">
- <a href="https://github.com/NREL/dgen/releases/latest">
-  <img src="https://img.shields.io/github/v/release/NREL/dgen">
- </a>
- <a href="https://nrel.github.io/dgen/">
-  <img src="https://img.shields.io/badge/docs-ready-blue.svg">
- </a>
-</p>
+## Version: Washington DC Solar forecasting project
 
+## Massive Data Institute, Georgetown University 
+## Department of Energy and Environment, Washington DC
 
 ## Documentation
 - [Webinar and Setup Tutorial](https://youtu.be/-Te5_KKZR8o)
@@ -202,3 +193,44 @@ Notes:
 
 ## Notes:
 - The "load_path" variable in config.py from the beta release has been removed for the final release. The load data is now integrated into each database. Load data and meta data for the agents is still accessible via the OEDI data submission.
+
+-----------------------------------------------------------
+
+### Update - Feb 21, 2024
+
+## DC Solar project (MDI + DOEE + NREL)
+
+
+This repository fork is designed to forecast solar adoption in Washington DC as a response to different SREC pricing regimes.
+
+#### STEPS:
+
+- **1. Run the above steps till step D.** Open PostGres, the table state_incentives_2020 and **make sure**
+  	 you can see the row whose values you want to change - it will contain 'DC' and 'SREC'
+
+- **2. Open `set_SREC_and_scenario.py` file.** Manually set the arguments in the dictionary to the required setting for each scenario parameter (like electricity price scenario - high)
+
+- **3. Open a terminal in the same directory.** Run:
+
+  ``python modify_script.py --srec 0.54 --input_sheet_path /path/to/input_sheet --database_path /path/to/database
+``
+
+1. SREC prices
+
+Currently, this contains only one extra script: `set_SREC_and_scenario.py` [link]
+
+This script makes changes in two files:
+
+- The original `dgen_db.sql` file. In input table `dgen_db.state_diffusion` tables, it manually searches for the row based on a regex-like pattern including the string 'DC'.
+
+- The 
+
+
+
+## Next steps:
+
+1. Set up cmd line interface to run over a list of values, return results and estimates in a dataframe.
+
+2. Set up distributed jobs.
+   
+
