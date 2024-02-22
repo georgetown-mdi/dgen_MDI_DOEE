@@ -215,7 +215,7 @@ Notes:
 This connection allows interacting with your database directly from the Python script, enabling SQL commands, such as updates or queries, dynamically during script execution.
 
 - **4. Set SREC price and scenario parameters:**
-  This can be changed by defining functions in the notebook directly. But to prepare for automation and scaling, we write a separate Python script `set_SREC_and_scenario.py`. This file performs two functions:
+  This can be changed by defining functions in the notebook directly. But to prepare for automation and scaling, we write a separate Python script `set_SREC_and_scenario.py` [link here](https://github.com/georgetown-mdi/dgen_MDI_DOEE/blob/master/dgen_os/python/Notebooks/modify_srec_scenario.py). This file performs two functions:
 
   	- a. `modify_sql`: Overwrite the values in the `dgen_db.sql `file on prior to loading the database. Or, update the database in PostGres using SQLAlchemy.
  
